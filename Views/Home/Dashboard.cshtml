@@ -1,0 +1,135 @@
+@* @{ViewData["Title"] = "Home Page";} *@
+
+@model DashboardWrapper
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body> 
+    <div class="container" style="margin:0px 0px 0px 0px">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>Welcome to the Jokes and Memes Hub"</h1>
+            </div>
+            <div class="col-md-3">
+                <a style = "margin:0px 0px 0px 0px" href="/logout">Log Out</a><br><br><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Hello&nbsp;@Model.LoggedUser.Alias,<br>Great to have you here.  </h4><br><br>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <a href="/ideas/new" class="col-sm-12 offset-sm-10"><button class="btn btn-success">Have something to add to the inventory?</button></a>
+        </div>
+    </div>
+    <div class="row"> 
+        <div class="text-center">
+            <img src="~/img/booknote.jpg" style="height:300px; margin:-230px 0px 200px 700px;" alt="typing"/> <br><br>
+        </div>
+    </div>
+    <div class="container" style="margin:-220px 0px 0px 0px">
+        <div class="row">
+        <div class="col">
+        <p>&nbsp;Jokes trending right now:</p><br>
+        <div class="card h-400" style="width: 26rem; overflow:auto; max-height:400px">
+            <div class="card-body">
+                @foreach(Idea idea in Model.AllIdeas.Where(j=>j.IsIdea==false).OrderByDescending(Ideas =>Ideas.UsersWhoLikeThisIdea.Count))
+                {
+                
+                    <a href="/onecreator/@idea.Creator.UserId" class="card-title" >From @idea.Creator.Alias &nbsp;-  </a><br>
+                    <p class="card-text">@idea.Content &nbsp; <span class="card-subtitle mb-2 text-muted">(Added on @idea.CreatedAt.Date.ToString("MMM dd, yyyy"))</span></p>
+                        @if(idea.UserId == Model.LoggedUser.UserId)
+                            {
+                                <a href="/ideas/@idea.IdeaId/edit"><button class="btn btn-primary">Edit</button></a> <a href="/ideas/@idea.IdeaId/delete"><button class="btn btn-danger">Delete</button></a>
+                            }
+                            else if(idea.UsersWhoLikeThisIdea.Any(r => r.UserId == Model.LoggedUser.UserId))
+                            {
+                                <a href="/ideas/@idea.IdeaId/unlike">Unlike</a>
+                            }
+                            else
+                            {
+                                <a href="/ideas/@idea.IdeaId/like">Like</a>
+                            }
+
+                    <a href="/OneIdea/@idea.IdeaId" class="card-link card-subtitle mb-2 text-muted">&nbsp; &nbsp; @idea.UsersWhoLikeThisIdea.Count &nbsp; people like this joke</a>
+                    <hr><br>
+                }<br>      
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <p>&nbsp;Memes trending right now:</p><br>
+        <div class="card" style="width: 26rem; overflow:auto; max-height:400px">
+            <div class="card-body">
+                @foreach(Idea idea in Model.AllIdeas.Where(j=>j.IsIdea==true).OrderByDescending(Ideas =>Ideas.UsersWhoLikeThisIdea.Count))
+                {
+                    <a href="/OneCreator/@idea.Creator.UserId" class="card-title" >From @idea.Creator.Alias &nbsp;-  </a><br>
+                    <p class="card-text">@idea.Content &nbsp; <span class="card-subtitle mb-2 text-muted">(Added on @idea.CreatedAt.Date.ToString("MMM dd, yyyy"))</span></p>
+                        @if(idea.UserId == Model.LoggedUser.UserId)
+                            {
+                                <a href="/ideas/@idea.IdeaId/edit" class="btn btn-primary">Edit</a> <a href="/ideas/@idea.IdeaId/delete"><button class="btn btn-danger">Delete</button></a>
+                            }
+                            else if(idea.UsersWhoLikeThisIdea.Any(r => r.UserId == Model.LoggedUser.UserId))
+                            {
+                                <a href="/ideas/@idea.IdeaId/unlike">Unlike</a>
+                            }
+                            else
+                            {
+                                <a href="/ideas/@idea.IdeaId/like">Like</a>
+                            }
+
+                    <a href="/OneIdea/@idea.IdeaId" class="card-link card-subtitle mb-2 text-muted">&nbsp; &nbsp; @idea.UsersWhoLikeThisIdea.Count &nbsp; people like this meme</a>
+                    <hr><br>
+                }<br>      
+            </div>
+        </div>
+    </div>
+
+    <div class="container"  style="margin:50px 0px 0px 0px; "> 
+        <div class="row">
+            <div class="col-sm-10 offset-sm" style="overflow:auto; max-height:400px">
+            <table class="table">
+                <thead>
+                    <th>Idea</th>
+                    <th>Creator</th>
+                    <th>Date Created</th>
+                    <th># of Likes</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody class="content" >
+                    @foreach(Idea idea in Model.AllIdeas)
+                    {
+                        <tr>
+                            <td><a href="/oneidea/@idea.IdeaId">@idea.Content</a></td>
+                            <td>@idea.Creator.Alias</td>
+                            <td>@idea.CreatedAt.ToString("MMM dd yyyy")</td>
+                            <td>@idea.UsersWhoLikeThisIdea.Count</td>
+                            <td>@if(idea.UserId == Model.LoggedUser.UserId)
+                                {
+                                    <a href="/ideas/@idea.IdeaId/edit"><button class="btn btn-primary">Edit</button></a> <a href="/ideas/@idea.IdeaId/delete"><button class="btn btn-danger">Delete</button></a>
+                                }
+                                else if(idea.UsersWhoLikeThisIdea.Any(r => r.UserId == Model.LoggedUser.UserId))
+                                {
+                                    <a href="/ideas/@idea.IdeaId/unlike"><button class="btn btn-secondary">Unlike</button></a>
+                                }
+                                else
+                                {
+                                    <a href="/ideas/@idea.IdeaId/like"><button class="btn btn-primary">Like</button></a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

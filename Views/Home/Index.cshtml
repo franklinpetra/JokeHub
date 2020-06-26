@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model Wrapper
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobby Hub</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="text-center">
+    <h2 class="display-4">Welcome to our Ideas and Jokes Hub</h2><br><br>
+    <h2>Register and Login</h2><br><br>
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-sm-6">
+        <form asp-action="Register" asp-controller="Home" method="post" style="margin: 0px 60px 0px 0px">
+            <div class="form-group row">
+                <span class="col-sm-12 offset-sm-4 text-danger" asp-validation-for="UserForm.Name"></span>
+                <label asp-for="UserForm.Name"class="col-sm-4"></label>
+                <input type="Name" asp-for="UserForm.Name" class="col-sm-8 form-control" placeholder="Only letters and spaces pleasse.">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-6 offset-sm-4 text-danger" asp-validation-for="UserForm.Alias"></span>
+                <label asp-for="UserForm.Alias"class="col-sm-4"></label>
+                <input type="Alias" asp-for="UserForm.Alias"  class="col-sm-8 form-control" placeholder="Only letters and numbers please">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-6 offset-sm-4 text-danger" asp-validation-for="UserForm.Email"></span>
+                <label asp-for="UserForm.Email"class="col-sm-4"></label>
+                <input type="email" asp-for="UserForm.Email" class="col-sm-8 form-control" placeholder="Email">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-6 offset-sm-4 text-danger" asp-validation-for="UserForm.Password"></span>
+                <label asp-for="UserForm.Password"class="col-sm-4"></label>
+                <input type="Password" asp-for="UserForm.Password" class="col-sm-8 form-control" placeholder="Password with 8 char, at least 1 letter and 1 number.">
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-6 offset-sm-4 text-danger" asp-validation-for="UserForm.Confirm"></span>
+                <label asp-for="UserForm.Confirm" class="col-sm-4"></label>
+                <input type="Password" asp-for="UserForm.Confirm" class="col-sm-8 form-control" placeholder="Password Confirm">
+            </div>
+            <div>
+                <input type="submit" value="Sign Up Now" class="col-sm-4 offset-sm-4 btn btn-primary">
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-6" style="margin: 0px 0px 0px 0px">
+        <form asp-action="Login" asp-controller="Home" method="post">
+            <div class="form-group row">
+                <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="LoginForm.Email"></span>
+                <label asp-for="LoginForm.Email" class="col-sm-4"></label>
+                <input asp-for="LoginForm.Email" class="col-sm-8 form-control" placeholder="Email">
+            </div>
+                <div class="form-group row">
+                    <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="LoginForm.Password"></span>
+                    <label asp-for="LoginForm.Password" class="col-sm-4"></label>
+                    <input type="Password" asp-for="LoginForm.Password" class="col-sm-8 form-control" placeholder="Password">
+                </div>
+                <div>
+                    <input type="submit" value="Login" class="col-sm-4 offset-sm-4 btn btn-primary">
+                </div>
+        </form>
+    </div>
+    <div class="text-center">
+        <img src="https://cdn.pixabay.com/photo/2019/03/20/03/39/draw-4067546_1280.png" style="height:300px;margin:0px 0px 0px 800px" alt="hand"/>
+    </div> 
+</div>
+</body>
+</html>

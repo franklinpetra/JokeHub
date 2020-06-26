@@ -1,0 +1,48 @@
+@model DashboardWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Edit Your Idea or Joke</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-action="EditIdea" asp-controller="Home" asp-route-HobbyId="@Model.IdeaForm.IdeaId" method="post">
+                    <div class="form-group row">
+                        <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="IdeaForm.Content"></span>
+                        <label asp-for="IdeaForm.Content" class="col-sm-4"></label>
+                        <input asp-for="IdeaForm.Content" class="col-sm-8 form-control">
+                    </div>
+                    <div class="form-group row">
+                        <input type="submit" value="Update Idea or Joke" class="col-sm-4 offset-sm-4 btn btn-primary">
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form asp-action="DeleteIdea" asp-controller="Home" asp-route-HobbyId="@Model.IdeaForm.IdeaId" method="post">
+                            <div class="form-group row">
+                            <input type="submit" value="Delete Idea or Joke" class="col-sm-4 offset-sm-4 btn btn-primary">
+                    </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 text-right">
+        <a href="/dashboard">Dashboard</a> | <a href="/logout">Log Out</a>
+    </div>
+    <div class="col-sm-12 offset-sm-1">
+        <a class="nav-link text-green col-sm-12 offset-sm-8" asp-area="" asp-controller="Home" asp-action="CreateHobby">Create Another Hobby</a>
+    </div>
+</body>
+</html>

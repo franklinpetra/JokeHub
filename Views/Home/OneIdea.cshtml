@@ -1,0 +1,39 @@
+@model DashboardWrapper
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneIdea</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 text-right">
+                <a href="/dashboard">Dashboard</a> | <a href="/logout">Log Out</a>
+            </div><br>            
+            <div class="card-body col-sm-8" style="border: 2px solid lightgrey;margin:75px 0px 100px 0px;">
+                <h5>@Model.IdeaForm.Content</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4>Created By: @Model.IdeaForm.Creator.Name &nbsp; (Alias - "@Model.IdeaForm.Creator.Alias")</h4><br>
+                <h4>Added to the Hub on: @Model.IdeaForm.CreatedAt.ToString("MMMM dd, yyyy")</h4><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <h4>Likes received by</h4>
+                <ul>
+                    @foreach(Like liker in Model.IdeaForm.UsersWhoLikeThisIdea)
+                    {
+                        <li>@liker.Liker.Alias - @liker.Liker.Name</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

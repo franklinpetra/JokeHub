@@ -1,0 +1,54 @@
+@model DashboardWrapper
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneUser</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div Class="row">
+            @* <div class="col-sm-8"><br><br>
+                <h2 style="margin: 100px 0px 0px 0px">@Model.LoggedUser.Alias &nbsp; says</h2><br><br>
+            </div> *@
+        </div>
+        <div Class="row">
+            <div class="col-sm-8">
+                @foreach(User user in Model.AllUsers)
+                {
+                    <h5>Name: &nbsp; @user.Name </h5>
+                    <h5>Alias: &nbsp; @user.Alias </h5>
+                    <h5>Email: &nbsp; @user.Email </h5>
+                    <h5>Total Number of Posts: &nbsp; @user.CreatedByUser.Count</h5>
+                        @foreach(Idea idea in Model.AllIdeas)
+                        {
+                            <h5>Total Number of Fans: &nbsp; @idea.UsersWhoLikeThisIdea.Count</h5>
+                        }
+                    
+                }
+            </div>
+        </div>
+        <hr>
+            <div class="row">
+                <div class="col-sm-8" style="margin: 100px 0px 0px 0px">
+                    @foreach(Like liker in Model.IdeaForm.UsersWhoLikeThisIdea)
+                    {
+                        <li>@liker.Liker.Alias - @liker.Liker.Name</li>
+
+                        <br><br>
+                    }
+                    <h4>Likes received by</h4>
+                        <ul>
+                            @foreach(Like liker in Model.IdeaForm.UsersWhoLikeThisIdea)
+                            {
+                                <li>@liker.Liker.Alias - @liker.Liker.Name</li>
+                            }
+                        </ul>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

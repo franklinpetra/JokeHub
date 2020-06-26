@@ -1,0 +1,46 @@
+@model Idea
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddIdea</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+    <br><br>
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align:center">Please add a Joke, Meme or Idea!</h1><br><br>
+            <h1 style="margin:50px 0px 50px 0px" class="col-sm-12 text-center"></h1>
+        </div>
+            <div class="row">
+                <form class="col-sm-8 offset-sm-2" asp-action="CreateIdea" asp-controller="Home" method="POST">
+                    <div class="form-group row">
+                        <span class="col-sm-8 offset-sm-4 text-danger" asp-validation-for="Content"></span>
+                        @* <label asp-for="Content" class="col-sm-4"></label> *@
+                        <input style="height:60px" asp-for="Content" class="col-sm-8 form-control">
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="IsIdea">Joke or Idea?</label>
+                        <select asp-for="IsIdea">
+                            <option value=false>Joke</option>
+                            <option value=true>Idea or Meme</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <input type="submit" value="Share your creation!" class="col-sm-4 offset-sm-4 btn btn-primary">
+                    </div>
+                    <div></div>
+                </form>
+            </div>
+        </div>
+    </div>
+<div class="row"> 
+            <div class="text-center">
+                <img src="~/img/typing.jpg" style="height:400px; margin:0px 0px 0px 500px;" alt="typing"/>
+            </div>
+        </div>
+</body>
+</html>
